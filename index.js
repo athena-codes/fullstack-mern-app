@@ -8,9 +8,10 @@ import helmet from "helmet"
 import morgan from "morgan"
 import path from "path"
 import { fileURLToPath } from "url"
+import { register }  from "./controllers/auth.js"
+
 
 // ********* Confiugurations **********
-
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 dotenv.config()
@@ -26,7 +27,6 @@ app.use('/assets', express.static(path.join(__dirname, 'public/assets')))
 
 
 // ********* File Storage **********
-
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, 'public/assets')
@@ -37,8 +37,14 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage })
 
-// ********* Mongoose Setup **********
 
+// ********* Routes w/ Files **********
+
+// 1st param: route to hit, 2nd param- middleware; uploads pic locally, 3rd param- controller
+app.post("/auth/register", upload.single("picture", register))
+
+
+// ********* Mongoose Setup **********
 const PORT = process.env.PORT || 6001
 mongoose
   .connect(process.env.MONGO_URL, {
