@@ -4,6 +4,15 @@ import { verifyToken } from "../middleware/auth.js"
 
 const router = express.Router()
 
-// Read
+// READ
+// grabs users feed from homepage
+router.get("/", verifyToken, getFeedPosts)
+// shows on relevant user posts on a user page
+router.get('/:userId/posts', verifyToken, getUserPosts)
 
-//  Get 
+
+//  UPDATE
+// liking and unliking posts
+router.patch('/:id/like', verifyToken, likePost)
+
+export default router
