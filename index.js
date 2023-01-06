@@ -20,8 +20,6 @@ import { users, posts } from "./data/index.js"
 
 mongoose.set('strictQuery', true)
 
-
-
 // ********* Confiugurations **********
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
